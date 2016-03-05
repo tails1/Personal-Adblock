@@ -51,6 +51,7 @@ var host_regexps = [
 /360ads\.com$/,
 /mesu\apple\.com$/,
 /vungle\.com$/,
+/trythisforexample\.com$/,
 /metrics\apple\.com$/,
 /phobos\apple\.com$/,
 /iadsdk\apple\.com$/,
