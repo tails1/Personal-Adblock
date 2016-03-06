@@ -2271,7 +2271,8 @@ var url_regexps = [
 /\/adsense-/,
 /\/adsense\./,
 /\/adsense\/\.*/,
-/www.google.com/adsense/
+/\/adwords-/,
+/\/adwords\./,
 /\/pixel-/,
 /\/pixel\./,
 /\/pixel\/\.*/,
