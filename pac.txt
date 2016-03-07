@@ -5517,7 +5517,7 @@ function FindProxyForURL(url, host)
 
   if ((url.substr(0,7) != "http://") && (url.substr(0,8) != "https://")) {
     logAlert("No zap for proto other than HTTP/HTTPS: " + url);
-    return DENY ;	
+    return ALLOW ;	
   }
 
   if (url.substr(0,8) == "https://") {
