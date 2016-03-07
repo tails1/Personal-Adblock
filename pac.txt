@@ -7,7 +7,7 @@
 
   var ALLOW = "DIRECT";
 
-  // var ALLOW = "PROXY proxy:8080";
+  // var ALLOW = "PROXY 8.8.8.8:53";
   var pxyCLEAR = "PROXY 8.8.8.8:53";
   var pxySSL   = "PROXY 8.8.8.8:53";
   // var pxyCLEAR = "PROXY 8.8.8.8:53";
