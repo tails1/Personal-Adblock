@@ -61,7 +61,6 @@ var host_regexps = [
 /\/tracking\./,
 /\/tracking\/\.*/,
 /\/track-/,
-facebook.com/business/
 /\/track\./,
 /\/track\/\.*/,
 /\/bannerads-/,
