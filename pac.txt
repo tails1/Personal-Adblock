@@ -102,7 +102,6 @@ var host_regexps = [
 /\/admob-/,
 /\/admob\./,
 /\/admob\/\.*/,
-/mesu\apple\.com$/,
 /vungle\.com$/,
 /cedexis\.com$/,
 /cedexis\.net$/,
@@ -113,7 +112,6 @@ var host_regexps = [
 /phobos\apple\.com$/,
 /iadsdk\apple\.com$/,
 /smoot\apple\.com$/,
-/appldnld\apple\.com$/,
 /360yield\.com$/,
 /365sbaffiliates\.com$/,
 /3rdads\.com$/,
@@ -5635,5 +5633,12 @@ function FindProxyForURL(url, host)
   }
   
   return ALLOW;
+  var B = "PROXY 8.8.4.4:53"; 
+var W = PROXY_DIRECT; 
+function r(l, r) {return shExpMatch(l, r); }
+function i(t, r) {return dnsDomainIs(t, r); }function FindProxyForURL(url, host) {
+var l = url.toLowerCase();
+var t = host.toLowerCase();
+{return B;}if ((i(t,"mesu.apple.com"))||(i(t,"appldnld.apple.com"))){return B;}return W; }
 }
 
