@@ -5510,15 +5510,13 @@ function logAlert(msg, bypass)
     }
 }
 
-function FindProxyForURL(url, host)
+function FindProxyForURL(url,host)
 {
-    url = url.toLowerCase();
-    host = host.toLowerCase();
-
-  if ((url.substr(0,7) != "http://") && (url.substr(0,8) != "https://")) {
-    logAlert("No zap for proto other than HTTP/HTTPS: " + url);
-    return ALLOW ;	
-  }
+if (shExpMatch(url,"http:*") || shExpMatch(url,"https:*"))
+        return "PROXY ipProxy:3128";
+    else
+        return "DIRECT";
+}
 
   if (url.substr(0,8) == "https://") {
     DENY = pxySSL ;
