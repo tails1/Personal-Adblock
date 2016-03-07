@@ -53,6 +53,8 @@ var host_regexps = [
 /\/analytics\./,
 /\/analytics\/\.*/,
 /\/business-/,
+/\/business/*,
+/\/business/,
 /\/business\./,
 /\/business\/\.*/,
 /\/tracking-/,
