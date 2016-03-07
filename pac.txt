@@ -55,7 +55,6 @@ var host_regexps = [
 /\/business-/,
 /\/business\./,
 /\/business\/\.*/,
-/\/business\/\/,
 /\/mobileads-/,
 /\/mobileads\./,
 /\/mobileads\/\.*/,
