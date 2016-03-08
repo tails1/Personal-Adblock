@@ -63,6 +63,7 @@ var host_regexps = [
 /\/mobilead\/\.*/,
 /cedexis-radar\.net$/,
 /cedexis-test\.com$/,
+/apteligent\.com$/,
 /\/tracking-/,
 /\/tracking\./,
 /\/tracking\/\.*/,
