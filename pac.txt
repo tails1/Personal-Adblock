@@ -91,7 +91,7 @@ var host_regexps = [
 /analytics\.google\.com$/,
 /adwords\.google\.com$/,
 /adsense\.google\.com$/,
-/.l\.google\.com$/,
+/l\.google\.com$/,
 /ads\.youtube\.com$/,
 /s\.youtube\.com$/,
 /insight\.youtube\.com$/,
