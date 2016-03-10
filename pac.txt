@@ -59,7 +59,6 @@ var host_regexps = [
 /localytics\.com$/,
 /playhaven\.com$/,
 /mopub\.com$/,
-/l\.google\.com$/,
 /ads\.youtube\.com$/,
 /s\.youtube\.com$/,
 /insight\.youtube\.com$/,
