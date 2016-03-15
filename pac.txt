@@ -5540,5 +5540,5 @@ function FindProxyForURL(url, host)
     DENY = pxyCLEAR ;
   }
   
-  return ALLOW;
+  return DENY;
 }
