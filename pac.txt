@@ -5641,27 +5641,27 @@ function FindProxyForURL(url, host)
   
   if (globalEnabled==false)
   {
-    DENY = ALLOW ;
+    DENY = pxyCLEAR ;
   }
 
   for (var i=0; i<wl_domains_regexps.length; i++) {
     if (wl_domains_regexps[i].test(host)) {
       wl_last = new Date();
       logAlert("ALLOW WL " + host + " at " + wl_last);
-      return ALLOW;
+      return DENY;
     }
   }
 
   if ((new Date() - wl_last) < WL_MAX_GAP)
   {
     logAlert("ALLOW " + host + " " + (new Date() - wl_last) + " wl child");
-    return ALLOW;
+    return DENY;
   }
 
   for (var i=0; i<white_regexps.length; i++) {
     if (white_regexps[i].test(url)) {
       logAlert("Allow white listed url " + url + " based on " + white_regexps[i]) ;
-      return ALLOW;
+      return DENY;
     }
   }
 
