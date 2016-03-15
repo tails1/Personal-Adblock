@@ -5591,8 +5591,8 @@ function FindProxyForURL(url, host)
     url = url.toLowerCase();
     host = host.toLowerCase();
 
-   if (url.substring(0, 6) == "https:") return "DIRECT";
- else return DENY ;	
+   if (url.substring(0, 6) == "https:") return ALLOW;
+ else return DENY;	
   }
 
   // no zap option
