@@ -5484,46 +5484,107 @@ var url_regexps = [
 /zonein\.tv\/addsz\.php/,
 /zophar\.net\/files\/tf_/,
 /zurrieqfc\.com\/images\/banners\//
-/radar.cedexis.net/,
-/radar.cedexis.com/,
-/scorecardresearch\.com/,
-/chartbeat\.net/,
-/chartbeat\.com/,
-/xiti\.com\/hit\.xiti/,
-/newrelic\.com/,
-/track\.pmd\.vodst\.com/
-/dailymotion\.com\/masscast\//,
-/\.adserver\./,
-/\/yieldmanager\//,
-/secure\.footprint\.net\//,
-/\.ezakus\.net\//,
-/neezzmail\.com\/js\/box\.js/
-/ad-emea\.doubleclick\.net\/adi\/z\.fr/,
-/ad-emea\.doubleclick\.net\/click/,
-/affiliation\.fotovista\.com\/track\/click\.php/,
-/www\.kqzyfj\.com\/click/,
-/xiti\.com\/go\.click/,
-/track\.effiliation\.com/,
-/action\.metaffiliation\.com\/suivi\.php/,
-/www\.smartadserver\.com\/call\/cliccommand/,
-/weborama\.fr\/fcgi-bin\/performance\.fcgi/,
-/\.doubleclick\.net\/clk/,
-/adfarm\.mediaplex\.com\/ad\/ck\//,
-/apmebf\.com\/ad\/ck/,
-/clk\.atdmt\.com\//,
-/clk\.tradedoubler\.com\/click/,
-/pagead2\.googlesyndication\.com\/aclk/,
-/www\.googleadservices\.com\/pagead\/aclk/,
-/tracking\.publicidees\.com\//,
-/tracker\.affility\.com\//,
-/ad\.zanox\.com\/ppc\//,
-/js.*\.wlxrs\.com\/.*\/adloader\.html$/,
-/phobos\.apple\.com/,
-/www\.virginmega\.fr\/virginfiles\/advertising\/promozone\/.+$/,
-/criteo\.com\//,
-/criteo\.net\//,
-/www\.google\.fr\/doubleclick\//,
 ];
+
+var parasites_regexps = [
+	/radar.cedexis.net/,
+	/radar.cedexis.com/,
+	/scorecardresearch\.com/,
+	/chartbeat\.net/,
+	/chartbeat\.com/,
+	/xiti\.com\/hit\.xiti/,
+	/newrelic\.com/,
+	/track\.pmd\.vodst\.com/
+];
+
+var regies_regexps = [
+	/dailymotion\.com\/masscast\//,
+	/\.adserver\./,
+	/\/yieldmanager\//,
+	/secure\.footprint\.net\//,
+	/\.ezakus\.net\//,
+	/neezzmail\.com\/js\/box\.js/
+];
+
+var white_regexps = [
+    // Contenu zalando
+    /ad-emea\.doubleclick\.net\/adi\/z\.fr/,
+    // track
+    /ad-emea\.doubleclick\.net\/click/,
+    /affiliation\.fotovista\.com\/track\/click\.php/,
+    /www\.kqzyfj\.com\/click/,
+    /xiti\.com\/go\.click/,
+    /track\.effiliation\.com/,
+    /action\.metaffiliation\.com\/suivi\.php/,
+    /www\.smartadserver\.com\/call\/cliccommand/,
+    /weborama\.fr\/fcgi-bin\/performance\.fcgi/,
+    /\.doubleclick\.net\/clk/,
+    /adfarm\.mediaplex\.com\/ad\/ck\//,
+    /apmebf\.com\/ad\/ck/,
+    /clk\.atdmt\.com\//,
+    /clk\.tradedoubler\.com\/click/,
+    /pagead2\.googlesyndication\.com\/aclk/,
+    /www\.googleadservices\.com\/pagead\/aclk/,
+    /tracking\.publicidees\.com\//,
+    /tracker\.affility\.com\//,
+    /ad\.zanox\.com\/ppc\//,
+    // hotmail
+    /js.*\.wlxrs\.com\/.*\/adloader\.html$/,
+    // itunes
+    /phobos\.apple\.com/,
+    // virginmega.fr
+    // /www\.virginmega\.fr\/virginfiles\/advertising\/promozone\/.+$/,
+    // doodle.com
+    /doodle\.com\/advertising\//,
+    // criteo
+    // /criteo\.com\//,
+    // /criteo\.net\//,
+    // infolignes.com
+    /www\.infolignes\.com\/previsions/,
+    // google doubleclick page
+    /www\.google\.fr\/doubleclick\//,
+    // imageshack
+    /\.imageshack\.us\//,
+    // ooyala
+    // # /player\.ooyala\.com\//,
+    // media6degrees
+    // # /stpix\.media6degrees\.com\//
+];
+
+var special_regexps = [
+    // Au feminin
+    /network\.aufeminin\.com\/diff\/.+/,
+//cesoirtv
+    /deliv\.prisma-presse\.com/,
+//appads
+    /.+\.appads\.com\//,
+// achetezfacile
+    /achetezfacile\.com/,
+// outbrain
+    /\.outbrain\.com/,
+// self diag
+    /diag\.speedmeup\.net\//,
+// YT
+   /youtube\.com\/get_ad_tags/,
+   /youtube\.com\/ptracking/,
+// estat
+//   /estat\.com\//,
+// scorecardresearch
+   /sb\.scorecardresearch\.com\//,
+// prisma
+   /ops\.prismamediadigital\.com\//,
+   /(www\.|)google\.[^\.]+\/gen_204/
+];
+
+
+function logAlert(msg, bypass)
+{
+    if (globalDebug || bypass)
+    {
+	txt = "E:" + globalEnabled + " D:" + globalDebug + " " + msg ;
+        alert(txt);
+    }
+}
 
 function FindProxyForURL(url, host)
 {
@@ -5531,14 +5592,113 @@ function FindProxyForURL(url, host)
     host = host.toLowerCase();
 
   if ((url.substr(0,7) != "http://") && (url.substr(0,8) != "https://")) {
+    logAlert("No zap for proto other than HTTP/HTTPS: " + url);
     return ALLOW ;	
   }
 
   if (url.substr(0,8) == "https://") {
-    DENY = pxySSL ;
+    ALLOW = "DIRECT";
   } else {
-    DENY = pxyCLEAR ;
+    ALLOW = "DIRECT";
+  }
+
+  // no zap option
+  if (nozap_regexp.test(url)) {
+    logAlert("No zap on " + url);
+    return ALLOW;
+  }
+
+  // enable/disable switch
+  if (globalEnabled == undefined)
+  {
+    logAlert("Default : Enabling Zapad") ;
+    globalEnabled = true ;
+  }
+
+  if (/gotoenable/.test(url))
+  {
+    logAlert("Enabling Zapad", true) ;
+    globalEnabled = true;
   }
   
-  return DENY;
+  if (/gotodisable/.test(url))
+  {
+    logAlert("Disabling Zapad", true) ;
+    globalEnabled = false;
+  }
+
+  if (/gotodebugenable/.test(url))
+  {
+    globalDebug = true;
+    logAlert("Enabling Debug", true) ;
+  }
+  
+  if (/gotodebugdisable/.test(url))
+  {
+    logAlert("Disabling Debug", true) ;
+    globalDebug = false;
+  }
+  
+  if (globalEnabled==false)
+  {
+    DENY = ALLOW ;
+  }
+
+  for (var i=0; i<wl_domains_regexps.length; i++) {
+    if (wl_domains_regexps[i].test(host)) {
+      wl_last = new Date();
+      logAlert("ALLOW WL " + host + " at " + wl_last);
+      return ALLOW;
+    }
+  }
+
+  if ((new Date() - wl_last) < WL_MAX_GAP)
+  {
+    logAlert("ALLOW " + host + " " + (new Date() - wl_last) + " wl child");
+    return ALLOW;
+  }
+
+  for (var i=0; i<white_regexps.length; i++) {
+    if (white_regexps[i].test(url)) {
+      logAlert("Allow white listed url " + url + " based on " + white_regexps[i]) ;
+      return ALLOW;
+    }
+  }
+
+  for (var i=0; i<special_regexps.length; i++) {
+    if (special_regexps[i].test(url)) {
+      logAlert("Denying url " + url + " based on " + special_regexps[i]) ;
+      return DENY;
+    }
+  }
+
+  for (var i=0; i<parasites_regexps.length; i++) {
+    if (parasites_regexps[i].test(url)) {
+      logAlert("Denying url " + url + " based on " + parasites_regexps[i]) ;
+      return DENY;
+    }
+  }
+  
+  for (var i=0; i<regies_regexps.length; i++) {
+    if (regies_regexps[i].test(url)) {
+      logAlert("Denying url " + url + " based on " + regies_regexps[i]) ;
+      return DENY;
+    }
+  }
+  
+  for (var i=0; i<host_regexps.length; i++) {
+    if (host_regexps[i].test(host)) {
+      logAlert("Denying url " + url + " based on host match " + host_regexps[i]) ;
+      return DENY;
+    }
+  }
+  
+  for (var i=0; i<url_regexps.length; i++) {
+    if (url_regexps[i].test(url)) {
+      logAlert("Denying url " + url + " based on " + url_regexps[i]) ;
+      return DENY;
+    }
+  }
+  
+  return ALLOW;
 }
