@@ -2392,9 +2392,6 @@ var url_regexps = [
 /\/adsense\/\.*/,
 /\/adwords-/,
 /\/adwords\./,
-/\/pixel-/,
-/\/pixel\./,
-/\/pixel\/\.*/,
 /\/adsense1\./,
 /\/adsense2\./,
 /\/adsense23\./,
@@ -5641,27 +5638,27 @@ function FindProxyForURL(url, host)
   
   if (globalEnabled==false)
   {
-    DENY = pxyCLEAR ;
+    DENY = ALLOW ;
   }
 
   for (var i=0; i<wl_domains_regexps.length; i++) {
     if (wl_domains_regexps[i].test(host)) {
       wl_last = new Date();
       logAlert("ALLOW WL " + host + " at " + wl_last);
-      return DENY;
+      return ALLOW;
     }
   }
 
   if ((new Date() - wl_last) < WL_MAX_GAP)
   {
     logAlert("ALLOW " + host + " " + (new Date() - wl_last) + " wl child");
-    return DENY;
+    return ALLOW;
   }
 
   for (var i=0; i<white_regexps.length; i++) {
     if (white_regexps[i].test(url)) {
       logAlert("Allow white listed url " + url + " based on " + white_regexps[i]) ;
-      return DENY;
+      return ALLOW;
     }
   }
 
