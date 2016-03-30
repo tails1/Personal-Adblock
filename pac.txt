@@ -82,7 +82,6 @@ var host_regexps = [
 /\/adserver-/,
 /\/adserver\./,
 /\/adserver\/\.*/,
-/crashlytics\.com$/,
 /crittercism\.com$/,
 /localytics\.com$/,
 /playhaven\.com$/,
