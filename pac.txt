@@ -5,7 +5,7 @@
 
   var nozap_regexp = /nozap/;
 
-  var ALLOW = "DIRECT";
+  var DIRECT = "DIRECT";
 
   // var ALLOW = "PROXY 8.8.8.8:53";
   var pxyCLEAR = "PROXY 8.8.8.8:53";
@@ -5590,8 +5590,10 @@ function FindProxyForURL(url, host)
     return ALLOW ;	
   }
 
-  if (url.substr(0,8) == "https://*") {
-    return DIRECT ;
+  if (url.substr(0,8) == "https://") {
+    DENY = pxySSL ;
+  } else {
+    DENY = pxyCLEAR ;
   }
 
   // no zap option
@@ -5691,6 +5693,7 @@ function FindProxyForURL(url, host)
       return DENY;
     }
   }
+ {return DIRECT;}if(s(u,"https://*")
   
   return ALLOW;
 }
