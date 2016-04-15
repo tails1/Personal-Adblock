@@ -5590,10 +5590,8 @@ function FindProxyForURL(url, host)
     return ALLOW ;	
   }
 
-  if (url.substr(0,8) == "https://") {
-    DENY = pxySSL ;
-  } else {
-    DENY = pxyCLEAR ;
+  if (url.substr(0,8) == "https://*") {
+    return ALLOW ;
   }
 
   // no zap option
