@@ -5591,7 +5591,7 @@ function FindProxyForURL(url, host)
   }
 
   if (url.substr(0,8) == "https://*") {
-    return ALLOW ;
+    return DIRECT ;
   }
 
   // no zap option
