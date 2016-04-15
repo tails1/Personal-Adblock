@@ -5591,9 +5591,9 @@ function FindProxyForURL(url, host)
   }
 
   if (url.substr(0,8) == "https://") {
-    DENY = pxySSL ;
+    ALLOW = "DIRECT";
   } else {
-    DENY = pxyCLEAR ;
+    ALLOW = "DIRECT";
   }
 
   // no zap option
@@ -5693,7 +5693,6 @@ function FindProxyForURL(url, host)
       return DENY;
     }
   }
- {return DIRECT;}if(s(u,"https://*")
   
   return ALLOW;
 }
