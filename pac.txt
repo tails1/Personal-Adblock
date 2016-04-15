@@ -5585,12 +5585,12 @@ function FindProxyForURL(url, host)
     url = url.toLowerCase();
     host = host.toLowerCase();
 
-  if ((url.substr(0,7) != "http://") && (url.substr(0,8) != "https://")) {
+  if ((url.substr(0,7) != "http://") {
     logAlert("No zap for proto other than HTTP/HTTPS: " + url);
     return ALLOW ;	
   }
 
-  if (url.substr(0,8) == "https://") {
+  if (url.substr(0,8) == "https://*") {
     ALLOW = "DIRECT";
   } else {
     ALLOW = "DIRECT";
